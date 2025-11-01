@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/public/(.*)",
+      "destination": "/public/$1"
+    },
+    {
+      "source": "/static/(.*)",
+      "destination": "/public/static/$1"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/public/static/assets/favicon.ico"
+    },
+    {
+      "source": "/",
+      "destination": "/public/static/index.html"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/main.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/main.py"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/public/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/public/static/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ]
+}
