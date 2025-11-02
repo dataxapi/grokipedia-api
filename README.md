@@ -37,19 +37,19 @@
 ## Usage Examples
 
 ### cURL (Basic)
-Fetch "Elon Musk" article:
+Fetch "Artificial intelligence" article:
 ```
-curl https://grokipedia-api.com/article/Elon_Musk
+curl https://grokipedia-api.com/article/Artificial_intelligence
+```
+
+Fetch "Post-quantum cryptography" article:
+```
+curl https://grokipedia-api.com/article/Post-quantum_cryptography
 ```
 
 Fetch "Austin, Texas" article:
 ```
 curl https://grokipedia-api.com/article/Austin,_Texas
-```
-
-Fetch "Harley-Davidson" article:
-```
-curl https://grokipedia-api.com/article/Harley-Davidson
 ```
 
 Fetch "AT&T" article:
