@@ -23,9 +23,9 @@ from dotenv import load_dotenv
 load_dotenv()  # Add this line to load .env
 
 app = FastAPI(
-    title="Grokipedia API v0.1",
+    title="Grokipedia API v0.2",
     description="Unofficial API for xAI's Grokipedia (not affiliated)",
-    version="0.1.0-beta",
+    version="0.2.0-beta",
     docs_url="/docs",
     redoc_url="/redoc"
 )
