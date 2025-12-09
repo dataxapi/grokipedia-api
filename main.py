@@ -235,6 +235,8 @@ async def get_page(
     content_text = re.sub(r'\n{3,}', '\n\n', content_div.get_text(separator="\n\n", strip=True))
     if truncate:
         content_text = content_text[:truncate]
+    if discord:
+        discord_content_text = content_text[:500]
     
     words = len(re.split(r'\s+', content_text.strip()))
     
@@ -258,12 +260,13 @@ async def get_page(
     _cache[cache_key] = (page, now)
     
     if discord:
-        discord_clean_txt = content_text.replace("\n\n", "")
+        discord_clean_txt = discord_content_text.replace("\n\n", " ")
         webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1448029503224807454/jJg3_K94BFDdwocK6bBrF6XXO3hpemqJSdfCyVHln107K5USSjyIg_ABlhrXSUa3coqi")
         embed = DiscordEmbed(title=page_title, description=discord_clean_txt, color="03b2f8")
         embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/ArUio-9FyAik8zLqdBDPhiNbQt1ozYbSL0FYvUaXXAQ/https/grokipedia.com/icon-512x512.png?format=webp&quality=lossless")
         embed.set_author(name="Grokipedia", url=url, icon_url="https://images-ext-1.discordapp.net/external/ArUio-9FyAik8zLqdBDPhiNbQt1ozYbSL0FYvUaXXAQ/https/grokipedia.com/icon-512x512.png?format=webp&quality=lossless")
         embed.set_timestamp()
+        embed.set_url(url)
         embed.set_footer(text=f"{page_title} entry from Grokipedia")
         webhook.add_embed(embed)
         webhook.execute()
