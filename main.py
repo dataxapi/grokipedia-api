@@ -83,7 +83,7 @@ class Page(BaseModel):
     references_count: int
     references: Optional[List[Reference]] = None
 
-def normalize_slug(input_str: str) -> str:
+def normalize_slug(input_str: str, title_case: bool = True) -> str:
     # Handle potential double-encoding from browser address bar (e.g., typing "at%26t" sends "at%2526t", decoded to "at%26t")
     input_str = urllib.parse.unquote(input_str)
     # FastAPI and query params automatically decode %26 to &, so input_str is already "AT&T" for such cases
@@ -97,7 +97,7 @@ def normalize_slug(input_str: str) -> str:
     has_ampersand = '&' in normalized
     if has_ampersand:
         normalized = normalized.upper()
-    else:
+    else if title_case:
         normalized = normalized.title()
     # Now replace spaces with underscores (ensures consistent underscore usage, no hyphens)
     normalized = re.sub(r'\s+', '_', normalized.strip())
@@ -198,9 +198,10 @@ async def get_page(
     extract_refs: bool = Query(True),
     truncate: Optional[int] = Query(None),
     citations: bool = Query(False),
-    discord: bool = Query(False)
+    discord: bool = Query(False),
+    title_case: bool = Query(True)
 ):
-    slug = normalize_slug(slug)
+    slug = normalize_slug(slug, title_case)
     
     cache_key = f"{slug}:{extract_refs}:{truncate or 'full'}:{citations}"
     now = datetime.now()
