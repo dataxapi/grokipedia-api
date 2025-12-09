@@ -1,3 +1,4 @@
+git+https://github.com/Rapptz/discord.py
 annotated-doc==0.0.3
 annotated-types==0.7.0
 anyio==4.11.0
