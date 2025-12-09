@@ -97,8 +97,10 @@ def normalize_slug(input_str: str, title_case: bool = True) -> str:
     has_ampersand = '&' in normalized
     if has_ampersand:
         normalized = normalized.upper()
-    else if title_case:
+    
+    if title_case:
         normalized = normalized.title()
+    
     # Now replace spaces with underscores (ensures consistent underscore usage, no hyphens)
     normalized = re.sub(r'\s+', '_', normalized.strip())
     return normalized
