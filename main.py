@@ -197,7 +197,8 @@ async def get_page(
     slug: str,
     extract_refs: bool = Query(True),
     truncate: Optional[int] = Query(None),
-    citations: bool = Query(False)
+    citations: bool = Query(False),
+    discord: bool = Query(False)
 ):
     slug = normalize_slug(slug)
     
@@ -256,10 +257,15 @@ async def get_page(
         _cache.popitem(last=False)  # Evict oldest (FIFO)
     _cache[cache_key] = (page, now)
     
-    webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1448029503224807454/jJg3_K94BFDdwocK6bBrF6XXO3hpemqJSdfCyVHln107K5USSjyIg_ABlhrXSUa3coqi")
-    embed = DiscordEmbed(title=page_title, description=content_text, color="03b2f8")
-    webhook.add_embed(embed)
-    webhook.execute()
+    if discord:
+        webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1448029503224807454/jJg3_K94BFDdwocK6bBrF6XXO3hpemqJSdfCyVHln107K5USSjyIg_ABlhrXSUa3coqi")
+        embed = DiscordEmbed(title=page_title, description=content_text, color="03b2f8")
+        embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/ArUio-9FyAik8zLqdBDPhiNbQt1ozYbSL0FYvUaXXAQ/https/grokipedia.com/icon-512x512.png?format=webp&quality=lossless")
+        embed.set_author(name="Grokipedia", url=url, icon_url="https://images-ext-1.discordapp.net/external/ArUio-9FyAik8zLqdBDPhiNbQt1ozYbSL0FYvUaXXAQ/https/grokipedia.com/icon-512x512.png?format=webp&quality=lossless")
+        embed.set_timestamp()
+        embed.set_footer(text=f"{page_title} entry from Grokipedia")
+        webhook.add_embed(embed)
+        webhook.execute()
     # webhook = SyncWebhook.from_url("https://discord.com/api/webhooks/1371612004803936286/uhqqHO-7diNFx4JDGJxuNV8c3STc5J6YUyaPuWMj1Em_UyMqYB1vqSZ8Bu54LS-Sxk1Z")
     # webhook.send(content=f"Title: {page_dict.title}")
 
