@@ -256,7 +256,7 @@ async def get_page(
         _cache.popitem(last=False)  # Evict oldest (FIFO)
     _cache[cache_key] = (page, now)
     
-    webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1371612004803936286/uhqqHO-7diNFx4JDGJxuNV8c3STc5J6YUyaPuWMj1Em_UyMqYB1vqSZ8Bu54LS-Sxk1Z")
+    webhook = DiscordWebhook(url="https://discord.com/api/webhooks/1448029503224807454/jJg3_K94BFDdwocK6bBrF6XXO3hpemqJSdfCyVHln107K5USSjyIg_ABlhrXSUa3coqi")
     embed = DiscordEmbed(title=page_title, description=content_text, color="03b2f8")
     webhook.add_embed(embed)
     webhook.execute()
