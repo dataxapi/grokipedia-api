@@ -36,7 +36,7 @@ body {
 }
 main {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     margin-bottom: 0.5rem;
     justify-content: center;
 }
@@ -67,12 +67,12 @@ a:hover {
     background-color: #E0E3E5;
 }
 .version {
-    background-color: #202020;
-    padding: 0.25rem 0.5rem;
-    margin-left: 0.575rem;
-    border-radius: 9999px;
-    font-size: 16px;
-    font-weight: 500;
+    margin-left: 0.375rem;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Gelasio', serif;
+    color: #727272;
+    font-style: italic;
 }
 nav {
     margin-bottom: 2rem;
