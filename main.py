@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 
 
 # Load environment variables from .env file
-load_dotenv()  # Add this line to load .env
+load_dotenv()
 
 app = FastAPI(
     title="Grokipedia API v0.3",
